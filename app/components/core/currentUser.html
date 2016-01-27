@@ -1,0 +1,9 @@
+﻿<div ng-if="currentUserCtrl.principle" class="text-center">
+    <span>
+        Welcome, <span>{{ currentUserCtrl.principle.unique_name }}</span>
+    </span>
+    <br />
+    <span>
+        <a href ng-click="currentUserCtrl.logout()">logout</a>
+    </span>
+</div>

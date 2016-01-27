@@ -1,0 +1,34 @@
+﻿<div>
+    <div class="modal-header bg-info">
+        <h3 class="modal-title">Other Orders For This Customer</h3>
+    </div>
+    <div class="modal-body" style="overflow-y: scroll; max-height: 400px; margin: 0; padding: 5px">
+        <table width="100%" ng-show="popupCtrl.orders">
+            <tr>
+                <td colspan="2">
+                    <div class="col-md-6">
+                        <label for="itemfilter">Filter by Item ID or UPC:</label> <input type="text" id="itemfilter" class="form-control" ng-model="popupCtrl.searchText" auto-focus on-enter-focus-to="itemfilter" />
+                    </div>
+                </td>
+            </tr>
+            <tr><td colspan="2">&nbsp;</td></tr>
+            <tr>
+                <td colspan="4" ng-if="popupCtrl.filteredOrders.length === 0">
+                    <div ng-if="popupCtrl.filteredOrders.length === 0 && popupCtrl.loading" class="text-center">Loading...</div>
+                    <div ng-if="popupCtrl.filteredOrders.length === 0 && !popupCtrl.loading" class="text-center">No orders found.</div>
+                </td>
+            </tr>
+            <tr ng-repeat="n in [] | range:popupCtrl.filteredOrders.length:0:2">
+                <td>
+                    <div class="col-md-6" other-customer-order order="popupCtrl.filteredOrders[n]" popupctrl="popupCtrl" ng-if="n < popupCtrl.filteredOrders.length">
+                    </div>
+                    <div class="col-md-6" other-customer-order order="popupCtrl.filteredOrders[n+1]" popupctrl="popupCtrl" ng-if="n + 1 < popupCtrl.filteredOrders.length">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="popupCtrl.ok()">OK</button>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="pull-right">
+            <div class="btn-group btn-group-xs" style="margin-left: 5px;">
+                <button id="order-actions-button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Actions
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li><a href ng-click="searchStateCtrl.showNotOurItemPopup()">Not Our Item</a></li>
+                    <li><a href ng-click="searchStateCtrl.showConsignLPToCart()">Consign LP to Cart</a></li>
+                </ul>
+            </div>
+        </div>
+        <h4 class="panel-title">Scan packing slip or enter order number</h4>
+    </div>
+    <div class="panel-body">
+        <div class="input-group">
+            <input type="text" id="orderOrPackageSearch" capitalize class="form-control" placeholder="Order or Package Number" ng-model="search" handle-enter="searchStateCtrl.executeSearch(search)" auto-focus on-enter-focus-to="orderOrPackageSearch">
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="searchStateCtrl.executeSearch(search)">Go!</button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="panel panel-info" ng-if="searchStateCtrl.showResults && searchStateCtrl.results.length === 0">
+    <div class="panel-heading">
+        <h4 class="panel-title">Results for {{searchStateCtrl.searchText}}</h4>
+    </div>
+    <div class="panel-body" ng-if="searchStateCtrl.message">
+        <span>{{searchStateCtrl.message}}</span>
+    </div>
+</div>
+<div class="panel panel-info" ng-if="searchStateCtrl.showResults && searchStateCtrl.results.length > 0" ng-repeat="result in searchStateCtrl.results">
+    <div class="panel-heading">
+        <h4 class="panel-title clearfix">
+            Matched on {{ result.matchingContext }}
+        </h4>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12">
+            <h4><a href ui-sref="app.returns.return.edit.addItem({ order: result.orderId })">Order #{{ result.altOrderId }} (Internal #{{result.orderId }})</a><br /></h4>
+            <strong>Order Date:</strong>
+            {{ result.orderDate | timestamp }}
+        </div>
+        <div class="col-md-3">
+            <strong>Billing details</strong>
+            <mailing-address class="billing-address" address="result.billingDetails"></mailing-address>
+        </div>
+        <div class="col-md-3">
+            <strong>Shipping details</strong>
+            <mailing-address class="shipping-address" address="result.shippingDetails"></mailing-address>
+        </div>
+    </div>
+</div>

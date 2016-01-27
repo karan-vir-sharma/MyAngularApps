@@ -1,0 +1,13 @@
+﻿<div>
+    <div class="modal-header">
+        <h3 class="modal-title">Message Received</h3>
+    </div>
+    <div class="modal-body">
+        From: {{ popupCtrl.message.from }}<br/>
+        Sent: {{ popupCtrl.message.sentOn | timestamp }}<br/><br/>
+        {{ popupCtrl.message.text}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="popupCtrl.close()">Close</button>
+    </div>
+</div>

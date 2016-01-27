@@ -1,0 +1,57 @@
+<div>
+    <div class="panel-body" ng-if="returnStateCtrl.distilledReturningItems.length === 0">
+        No items have been added to the return.
+    </div>
+    <div ng-if="returnStateCtrl.distilledReturningItems.length > 0">
+        <table class="table" style="margin-bottom:0">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Order Item</th>
+                    <th>Item Number</th>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th style="white-space: nowrap"><span class="text-muted"><em>Customer Reason</em></span><br />Verified Reason</th>
+                    <th>Container</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="item in returnStateCtrl.distilledReturningItems">
+                    <td><a href ng-click="removeItemFromReturn(item)">x</a></td>
+                    <td>
+                        {{item.orderedItemId}}
+                        <!--<span class="label label-default" ng-if="item.isDropShip">Drop Ship</span>-->
+                    </td>
+                    <td style="white-space: nowrap;">
+                        {{item.virtualSku == '' ? item.itemNumber : ''}}
+                        {{item.virtualSku }}
+
+                        <!--<span class="label label-default" ng-if="item.isDemandMade"><br/>
+                                { { item.isCustom ? 'Custom' : 'Demand Made' } }
+                            </span>-->
+                    </td>
+                    <td width="99%">
+                        {{item.description}} - {{item.size}}
+                        <item-images product-id="item.productId" primary-image-url="item.imageUrl"></item-images>
+                    </td>
+                    <td>{{item.quantity}}</td>
+                    <td style="white-space: nowrap">
+                        <span class="text-muted"><em>{{ item.reasonCode | reasonCodeDisplay }}</em></span><br />
+                        <span ng-if="item.reasonCode !== item.adjustedReasonCode">{{ item.adjustedReasonCode | reasonCodeDisplay }}</span>
+                    </td>
+                    <td>
+                        <div ng-if="item.charity"><span class="label label-info">CHARITY</span></div>
+                        <span class="label label-default" ng-class="{'label-danger':(item.isDamagedReason || item.isAdjustedDamagedReason),'label-default':!(item.isDamagedReason || item.isAdjustedDamagedReason)}">{{item.container}}</span>
+                    </td>
+                    <td style="text-align: right;">
+                        <button class="btn btn-sm btn-default" ng-if="(item.isDamagedReason || item.isAdjustedDamagedReason)" ng-click="returnStateCtrl.printLabel(item)">Print</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-default pull-right" style="margin: 8px;" ng-enabled="returnStateCtrl.data.returnData.canComplete" ng-class="{'disabled':!returnStateCtrl.data.returnData.canComplete}" ng-click="returnStateCtrl.completeReturn()">Complete Return</button>
+        <span class="clearfix"></span>
+    </div>
+</div>

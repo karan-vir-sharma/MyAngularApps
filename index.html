@@ -1,0 +1,83 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=9">
+    <title>WMS 2.0</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./assets/libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/libs/font-awsome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/libs/angular-hotkeys/build/hotkeys.min.css" />
+    <script src="./assets/libs/normalize/normalize.min.js"></script>
+    <script src="./assets/libs/modernizr/modernizr.js"></script>
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/sidebar.css">
+    <link rel="stylesheet" href="./assets/css/app.css">
+</head>
+<body ng-app="app" ng-cloak class="ng-cloak" show-state-change-splash>
+
+    <div>
+        <div ui-view></div>
+    </div>
+
+    <script type="text/javascript">
+        // Avoid `console` errors in browsers that lack a console.
+        (function () {
+            var method;
+            var noop = function () { };
+            var methods = [
+                'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+                'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+                'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+                'timeline', 'timelineEnd', 'timeStamp', 'trace', 'warn'
+            ];
+            var length = methods.length;
+            var console = (window.console = window.console || {});
+
+            while (length--) {
+                method = methods[length];
+
+                // Only stub undefined methods.
+                if (!console[method]) {
+                    console[method] = noop;
+                }
+            }
+        }());
+    </script>
+
+    <!--[if gte IE 9]>
+    <script type="text/javascript" async src="./assets/libs/base64/base64.min.js"></script>
+    <![endif]-->
+
+    <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="./assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./assets/libs/angular/angular.min.js"></script>
+    <script src="./assets/libs/ui-router/release/angular-ui-router.min.js"></script>
+    <script src="./assets/libs/ui-bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <script src="./assets/libs/angular-cookies/angular-cookies.min.js"></script>
+    <script src="./assets/libs/gsklee-ngstorage/ngStorage.js"></script>
+    <script src="./assets/libs/angular-hotkeys/build/hotkeys.min.js"></script>
+    <script src="./assets/libs/moment/moment.js"></script>
+
+    <script src="./app/app.modules.js"></script>
+    <script src="./app/shared/helpers.js"></script>
+    <script src="./app/components/core/core.base.js"></script>
+    <script src="./app/components/core/core.printing.js"></script>
+    <script src="./app/components/core/core.configuration.js"></script>
+    <script src="./app/components/core/core.authentication.js"></script>
+    <script src="./app/components/core/core.legacy.js"></script>
+    <script src="./app/components/core/core.messaging.js"></script>
+    <script src="./app/components/core/core.navigation.js"></script>
+    <script src="./app/components/home/home.js"></script>
+    <script src="./app/components/inventory/inventory.data.js"></script>
+    <script src="./app/components/users/users.data.js"></script>
+    <script src="./app/components/returns/returns.core.js"></script>
+    <script src="./app/components/returns/returns.data.js"></script>
+    <script src="./app/components/returns/returns.activeReturn.js"></script>
+    <script src="./app/components/returns/returns.search.js"></script>
+    <script src="./app/components/returns/returns.dashboard.js"></script>
+
+    <script src="./baseConfig.js"></script>
+</body>
+</html>

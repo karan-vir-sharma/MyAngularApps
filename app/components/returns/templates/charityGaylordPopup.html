@@ -1,0 +1,59 @@
+﻿<div>
+    <form ng-submit="popupCtrl.submit()">
+        <div class="modal-header bg-warning">
+            <h3 class="modal-title">Send Item To Charity</h3>
+        </div>
+        <div class="modal-body">
+
+            <table class="table table-condensed" style="margin-bottom: 0">
+                <thead>
+                    <tr>
+                        <th>Order Item</th>
+                        <th>Item Number</th>
+                        <th>Description</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            {{::popupCtrl.returningOrderItem.orderItemId}}
+                            <span class="label label-default" ng-if="popupCtrl.returningOrderItem.isDropShip">Drop Ship</span>
+                        </td>
+                        <td style="white-space: nowrap;">
+                            {{:: popupCtrl.returningOrderItem.virtualSku == '' ? popupCtrl.returningOrderItem.itemNumber : ''}}
+                            {{:: popupCtrl.returningOrderItem.virtualSku }}<br />
+
+                            <span class="label label-default" ng-if="popupCtrl.returningOrderItem.IsDemandMade">
+                                {{:: popupCtrl.returningOrderItem.IsCustom ? 'Custom' : 'Demand Made' }}
+                            </span>
+                        </td>
+                        <td width="99%">
+                            {{::popupCtrl.returningOrderItem.description}}<br/>
+                            <item-images product-id="popupCtrl.returningOrderItem.productId" primary-image-url="popupCtrl.returningOrderItem.imageUrl"></item-images>
+                        </td>
+                        <td style="white-space: nowrap">
+                            {{ popupCtrl.reasonCode | reasonCodeDisplay }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <div style="display: table; margin: 0 auto;">
+                <p>
+                    <label for="charityLP">Scan Charity Gaylord LP:</label><br/>
+                    <input class="form-control" id="charityLP" type="text" capitalize ng-model="popupCtrl.charityContainer" auto-focus>
+                </p>
+            </div>
+            <div class="text-center" style="color: red;" ng-if="popupCtrl.errorMessage">
+                {{ popupCtrl.errorMessage }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-default" ng-click="popupCtrl.cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

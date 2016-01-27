@@ -1,0 +1,63 @@
+<div class="panel panel-info">
+
+  <div class="panel-heading">
+    <h4 class="panel-title clearfix">
+      <a data-toggle="collapse" data-target="#orderDetailsBody" href class="collapsed">
+        <h4 class="inlineHeader">Order #<span>{{returnStateCtrl.data.orderData.altOrderId}}</span></h4>
+        <h5 class="inlineHeader">(Internal #<span>{{returnStateCtrl.data.orderData.id}}</span>)</h5>
+      </a>
+        <span style="margin-left:20px">
+            <span class="label label-default" style="margin: 0 2px">Bill To: <strong>{{returnStateCtrl.data.orderData.billingDetails.name}}</strong></span>
+            <span class="label label-default" style="margin: 0 2px">Ship To: <strong>{{returnStateCtrl.data.orderData.shippingDetails.name}}</strong></span>
+        </span>
+      <span style="margin-left:20px">
+          <button class="btn btn-xs btn-default" ng-click="showOrdersForClient()">Other orders from this customer</button>
+      </span>
+    </h4>
+  </div>
+    <div id="orderDetailsBody" class="panel-collapse collapse">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-default">
+                <table class="col-md-6">
+                    <tr>
+                        <td>
+                            <strong>Billing details:</strong><br/>
+                            <mailing-address address="returnStateCtrl.data.orderData.billingDetails"></mailing-address>
+                        </td>
+                        <td>
+                            <strong>Shipping details:</strong><br/>
+                            <mailing-address address="returnStateCtrl.data.orderData.shippingDetails"></mailing-address>
+                        </td>
+                    </tr>
+                </table>
+                <table class="col-md-6">
+                    <tr>
+                        <td><strong>Order Date:</strong></td>
+                        <td>{{returnStateCtrl.data.orderData.date | date}}</td>
+                    </tr>
+                    <tr ng-if="returnStateCtrl.data.orderData.lastShipDate">
+                        <td><strong>Last Ship Date:</strong></td>
+                        <td>{{returnStateCtrl.data.orderData.lastShipDate | date}}</td>
+                    </tr>
+                </table>
+                <span class="clearfix">&nbsp;</span>
+            </li>
+            <li class="list-group-item list-group-item-default">
+                <strong>Notes:</strong>
+                <table style="margin: 0;" class="table table-collapse table-bordered">
+                    <tr ng-repeat="note in returnStateCtrl.data.orderData.notes|orderBy:'createdOn'">
+                        <td>{{(note.createdBy || 'unknown')}}</td>
+                        <td>{{ note.createdOn | timestamp}}</td>
+                        <td width="99%">{{note.note}}</td>
+                    </tr>
+                    <tr ng-repeat="note in returnStateCtrl.data.returnData.orderNotes|orderBy:'createdOn'">
+                        <td>{{(note.createdBy || 'unknown')}}</td>
+                        <td>{{ note.createdOn | timestamp}}</td>
+                        <td width="99%">{{note.note}}</td>
+                    </tr>
+                </table>
+                <button add-order-note class="btn btn-default" style="margin-top: 10px">Add Order Note</button>
+            </li>
+        </ul>
+    </div>
+</div>

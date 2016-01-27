@@ -1,0 +1,33 @@
+﻿<div>
+    <form ng-submit="popupCtrl.supervisorOverride()">
+        <div class="modal-header bg-warning">
+            <h3 class="modal-title">{{ popupCtrl.messageArgs.message }}</h3>
+        </div>
+        <div class="modal-body">
+            <div ng-repeat="policyViolation in popupCtrl.messageArgs.policyResults.items | filter:{isReturnable:false}" style="text-align: center; color: red;">
+                {{ policyViolation.reason }}
+            </div>
+            <div style="text-align: center; margin: 10px 0" ng-hide="popupCtrl.HideCharity">
+                <div>Ship Date: {{ popupCtrl.messageArgs.policyResults.lastShipDate | date }}</div>
+                <div>Return By Date: {{ popupCtrl.messageArgs.policyResults.lastReturnDate | date }}</div>
+                <div><strong><span date-diff first-date="popupCtrl.messageArgs.policyResults.lastReturnDate" positive-suffix="days remaining" negative-suffix="days late"></span></strong></div>
+            </div>
+            <p style="text-align: center;">Supervisor override is required to accept the return.</p>
+            <div style="display: table; margin: 0 auto;">
+                <p>
+                    <label for="username">UserName:</label><br />
+                    <input class="form-control" id="username" type="text" ng-model="popupCtrl.username" auto-focus />
+                </p>
+                <p>
+                    <label for="password">Password:</label><br />
+                    <input class="form-control" id="password" type="password" ng-model="popupCtrl.password" />
+                <p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-default" ng-click="popupCtrl.charityGaylord()" ng-hide="popupCtrl.HideCharity">Scan to Charity</button>
+            <button class="btn btn-default" ng-click="popupCtrl.cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

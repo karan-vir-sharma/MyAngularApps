@@ -1,0 +1,13 @@
+<div class="panel" ng-class="{'panel-warning':returnStateCtrl.data.returnData.stateLookup.NoMRLSelected,'panel-success':!returnStateCtrl.data.returnData.stateLookup.NoMRLSelected}">
+    <div class="panel-heading">
+        <span loading-animation ng-show="mrlCtrl.loading" style="position: absolute; right: 20px;"></span>
+        <h4 class="panel-title">Is the customer required to pay a Merchandise Return Label fee?</h4>
+    </div>
+    <div class="panel-body">
+        <div class="btn-group">
+            <button class="btn btn-default" ng-class="{'active': returnStateCtrl.data.returnData.details.customerPaysMRL === true}" ng-disabled="returnStateCtrl.data.returnData.details.customerPaysMRL === false && returnStateCtrl.data.returnData.mrlLocked" ng-click="mrlCtrl.setCustomerPaysMrl(true)">Yes</button>
+            <button class="btn btn-default" ng-class="{'active': returnStateCtrl.data.returnData.details.customerPaysMRL === false}" ng-disabled="returnStateCtrl.data.returnData.details.customerPaysMRL === true && returnStateCtrl.data.returnData.mrlLocked" ng-click="mrlCtrl.setCustomerPaysMrl(false)">No</button>
+        </div>
+        <div ng-if="returnStateCtrl.data.returnData.mrlLocked" style="margin-top:10px">Answer is locked to {{returnStateCtrl.data.returnData.details.customerPaysMRL ? "Yes" : "No" }}.</div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+﻿<div>
+    <div class="modal-header" ng-class="{ 'bg-danger': popupCtrl.messageArgs.mode === 'ERROR','bg-warning': popupCtrl.messageArgs.mode === 'WARNING','bg-info': popupCtrl.messageArgs.mode === 'INFO' || ( popupCtrl.messageArgs.mode !== 'WARNING' && popupCtrl.messageArgs.mode !== 'ERROR') }">
+        <h3 class="modal-title">{{ popupCtrl.messageArgs.title }}</h3>
+    </div>
+    <div class="modal-body" ng-if="popupCtrl.messageArgs.detail">
+        <div class="text-center">
+            {{ popupCtrl.messageArgs.detail }}
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>

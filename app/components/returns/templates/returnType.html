@@ -1,0 +1,14 @@
+<div class="panel" ng-class="{'panel-warning':returnStateCtrl.data.returnData.stateLookup.NoReturnType,'panel-success':!returnStateCtrl.data.returnData.stateLookup.NoReturnType}" auto-focus>
+    <div class="panel-heading">
+        <span loading-animation ng-show="returnTypeCtrl.loading" style="position: absolute; right: 20px;"></span>
+        <h4 class="panel-title">Type of return</h4>
+    </div>
+    <div class="panel-body">
+        <div class="btn-group-vertical">
+            <button style="position: absolute; top: -10000px; left: -10000px;" auto-focus></button>
+            <button style="white-space: normal;" class="btn btn-default" ng-class="{'active': returnStateCtrl.data.returnData.details.type === 'A01_REFUND_ORIGINAL_FORM_OF_PAYMENT'}" ng-click="returnTypeCtrl.setReturnType('A01_REFUND_ORIGINAL_FORM_OF_PAYMENT')">Refund buyer's original credit card or form of payment used at checkout</button>
+            <button style="white-space: normal;" class="btn btn-default" ng-class="{'active': returnStateCtrl.data.returnData.details.type === 'A02_RETURN_DAMAGED_OR_INCORRECT_ITEM'}" ng-click="returnTypeCtrl.setReturnType('A02_RETURN_DAMAGED_OR_INCORRECT_ITEM')">Return damaged or incorrect item</button>
+            <button style="white-space: normal;" class="btn btn-default" ng-class="{'active': returnStateCtrl.data.returnData.details.type === 'A03_RETURN_GIFT'}" ng-click="returnTypeCtrl.setReturnType('A03_RETURN_GIFT')">Return gift</button>
+        </div>
+    </div>
+</div> 

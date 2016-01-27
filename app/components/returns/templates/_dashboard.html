@@ -1,0 +1,60 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">Active returns can be reassigned or killed as long as they have no units added to them</h4>
+    </div>
+    <form name="outerform" novalidate>
+        <div ng-show="dashCtrl.pageData.length === 0" class="panel-body">There are no active returns</div>
+        <table class="table table-responsive" ng-show="dashCtrl.pageData.length > 0">
+            <thead>
+            <tr>
+                <th>Assigned User:</th>
+                <th>Order Number:</th>
+                <th>Last Edit Date/Time:</th>
+                <th>Items Processed on Return:</th>
+                <th>LPs Used on Return:</th>
+                <th>Action:</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="datum in dashCtrl.pageData" ng-form name="innerform">
+                <td>
+                    <span ng-class="{ 'has-error': innerform.assignedUser.$invalid && innerform.$dirty }">
+                        <input type="text"
+                               name="assignedUser"
+                               class="form-control"
+                               ng-model="datum.userName"
+                               typeahead="item.userName as item.userName for item in dashCtrl.userData | filter:{userName:$viewValue} | limitTo:10"
+                               listcheck
+                               list-to-check="dashCtrl.userData"
+                               required />
+                    </span>
+                </td>
+                <td>
+                    {{ datum.orderId }}
+                </td>
+                <td>
+                    {{ datum.lastEditDateTime | momentFormat:'MM/DD/YYYY HH:mm' }}
+                </td>
+                <td>
+                    {{ datum.itemsProcessed }}
+                </td>
+                <td>
+                    <span ng-repeat="lp in datum.lps">{{ lp }}<span ng-if="!$last">, </span></span>
+                </td>
+                <td>
+                    <button type="button" ng-click="dashCtrl.ops.changeUser(datum.orderId, datum.userName)" class="btn btn-default" ng-disabled="!innerform.$dirty || innerform.$invalid">save</button>
+                    <button type="button" ng-click="dashCtrl.ops.killReturn(datum.orderId)" class="btn btn-default" ng-disabled="datum.itemsProcessed > 0">kill return</button>
+                    <!--<show-data data="innerform"></show-data>-->
+                </td>
+            </tr>
+        </table>
+        <!--<div class="col-md-4">
+            <show-data data="outerform"></show-data>
+        </div>-->
+    </form>
+</div>
+<!--<div class="col-md-7">
+    <pre>{{dashCtrl.pageData | json}}</pre>
+</div>
+<div class="col-md-5">
+    <pre>{{dashCtrl.userData | json}}</pre>
+</div>-->

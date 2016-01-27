@@ -1,0 +1,19 @@
+﻿<div>
+    <div environment-notice></div>
+    <div id="signinTemplate" style="display: table; margin: 0 auto;">
+        <form ng-submit="signinctrl.login()">
+            <p>
+                <label for="username">UserName:</label><br/>
+                <input id="username" type="text" ng-model="signinctrl.username"/>
+            </p>
+            <p>
+            <label for="password">Password:</label><br/>
+            <input id="password" type="password" ng-model="signinctrl.password"/>
+            <p>
+            <input type="submit" value="submit" style="float: right;"/><br/>
+        </form>
+    </div>
+
+    <div ng-show="signinctrl.error" style="color: red; display: table; margin: 0 auto;">{{signinctrl.error}}</div>
+    <div class="legalNotice" style="width: 585px; display: table; margin: 0 auto; font-size: 9px;">Unauthorized access to or use of this system (including misuse of the data herein modification of the data, or use of the system for illegal purposes) is strictly prohibited. Violators will be prosecuted to the fullest extent of local, state and federal laws. Fanatics may use software to monitor traffic and to identify unauthorized attempts to access, change, and/or conduct illegal activity. In the event of unauthorized intrusion all relevant information regarding possible violation of law will be provided to law enforcement officials.</div>
+</div>

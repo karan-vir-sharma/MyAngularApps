@@ -1,0 +1,6 @@
+﻿<div id="environment-notice" ng-class="{'development' : envNoticeCtrl.environmentType === 'DEV', 'qa' : envNoticeCtrl.environmentType === 'QA', 'production' : envNoticeCtrl.environmentType === 'PRODUCTION', 'error': envNoticeCtrl.isError }">
+    <div id="environment-notice-content">
+        <i ng-show="envNoticeCtrl.loading" class="fa fa-cog fa-spin"></i>
+        <span ng-hide="envNoticeCtrl.loading">{{ envNoticeCtrl.notice }}</span>
+    </div>
+</div>

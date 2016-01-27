@@ -1,0 +1,19 @@
+﻿<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4 class="panel-title clearfix">
+            <a href ng-click="popupctrl.startNewReturn(order.orderId)">Order #<span class="alt-order-id">{{ order.altOrderId }}</span> (Internal #<span class="order-id">{{ order.orderId }}</span>)</a>
+        </h4>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12">
+            <strong>Order Date:</strong>
+            {{ order.orderDate | timestamp }}
+        </div>
+        <div class="col-md-12">
+            <strong>Item #:</strong>
+            <ul>
+                <li ng-repeat="item in order.itemDetails | startsWith:popupctrl.propSelector:popupctrl.searchText" ng-click="popupctrl.startNewReturn(order.orderId)"><a href popover="{{ item.description }} - {{ item.size }}" popover-trigger="mouseenter" popover-popup-delay="250" popover-placement="right">{{ item.virtualSKU || item.itemNum }}<span ng-if="item.itemALU"> {{" (UPC " + item.itemALU + ")"}}</span></a> <item-images product-id="item.productId" primary-image-url="item.imageURL"></item-images></li>
+            </ul>
+        </div>
+    </div>
+</div>

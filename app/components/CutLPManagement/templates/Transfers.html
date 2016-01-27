@@ -1,0 +1,94 @@
+﻿<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+</head>
+<div ng-app="app.transfers.core" style="width: 100%; border:none" class="center">
+
+    <script type="text/javascript">
+        //JQuery code For Tool Tips & datePickers
+        $(window).ready(function() {
+            $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+            $("#datepicker1").datepicker({ dateFormat: 'yy-mm-dd' });
+            $("itemSearchTxt").tooltip();
+            $("truckNameSearchTxt").tooltip();
+            $("palletNameSearchTxt").tooltip();
+            $("usrNameSearchTxt").tooltip();
+
+        });
+    </script>
+
+    <div class="clearfix" style="border: 1px solid #337AB7; padding: 10px;">
+        <div class="pull-left">
+            <label>Search by Item Number / Virtual SKU:</label></br>
+            <input id="itemSearchTxt" type="text" class="form-control small" ng-model="itemNumberSearch" title="Search Trucks/Pallets by Item Number." placeholder="Search Items">
+        </div>
+
+        <div class="pull-right">
+            <label>Filter Trucks:</label></br>
+            <select ng-options="item.name for item in filterOptions.unloadDate"
+                    ng-model="selected" ng-change="truckFilter.unloadDate = ''; palletFilter.updateDate = ''; itemNumberSearch = ''; truckFilter.unloadedBy = ''"
+                    id="truckFilter"></select>
+        </div>
+
+    </div>
+
+        <table st-table=" rowcollection" class="responstable" style="width:100%">
+            <thead style="border: solid; border-color: #337AB7; border-bottom-color: #D9E4E6">
+                <tr>
+                    <th st-sort="TruckLocation">Truck Name</th>
+                    <th st-sort="TruckUnloadDate">Truck Unload Date</th>
+                    <th st-sort="TruckUnloadDate">Truck Unloaded By</th>
+                    <th st-sort="Pallets">Pallets Loaded on the Truck</th>
+                    <th st-sort="PalletUnloadDate">Pallet Unload Date</th>
+                </tr>
+                <tr style="border: solid; border-color: #337AB7; border-bottom-color: #D9E4E6; border-bottom-width: thin">
+                    <th style="background-color: #ffffff; border-right-color: #D9E4E6;">
+                        <input type="text" class="form-control" placeholder="Search Trucks" ng-model="truckFilter.location" id="truckNameSearchTxt" title="Search Trucks/Pallets by Truck Name." /> <!--ng-model="test1.City"-->
+                    </th>
+                    <th style="background-color: #ffffff; border-bottom-color: #D9E4E6; border-right-color: #D9E4E6;">
+                        <input type="text" class="form-control" ng-disabled="selected.name === 'Trucks - Not Yet Unloaded'" placeholder="Truck Unload Date" ng-model="truckFilter.unloadDate" id="datepicker" jqdatepicker />
+                    </th>
+                    <th style="background-color: #ffffff; border-bottom-color: #D9E4E6; border-right-color: #D9E4E6;">
+                        <input type="text" class="form-control" ng-disabled="selected.name === 'Trucks - Not Yet Unloaded'" placeholder="Search User" ng-model="truckFilter.unloadedBy" id="usrNameSearchTxt" title="Search Users." /> <!--ng-model="test1.City"-->
+                    </th>
+                    <th style="background-color: #ffffff; border-bottom-color: #D9E4E6; border-right-color: #D9E4E6;">
+                        <input type="text" class="form-control" placeholder="Search Pallets" ng-model="palletFilter.location" id="palletNameSearchTxt" title="Search Trucks/Pallets by Pallet Name." /> <!--ng-model="test1.Country"-->
+                    </th>
+                    <th style="background-color: #ffffff; border-bottom-color: #D9E4E6; border-right-color: #D9E4E6;">
+                        <input type="text" class="form-control" ng-disabled="selected.name === 'Trucks - Not Yet Unloaded'" placeholder="Pallet Unload Date" ng-model="palletFilter.updateDate" id="datepicker1" jqdatepicker /> <!--ng-model="test1.City"-->
+                    </th>
+
+                </tr>
+            </thead>
+
+            <tbody style="border: solid; border-bottom-color: #337AB7; border-top-color: white; border-left-color: #337AB7; border-right-color: #337AB7">
+                <tr style="vertical-align: text-top; border: thin; border-color: #d9e4e6" ng-repeat="x in data.inTransitTrucks | filter:truckFilter | truckDateFilter:selected | truckItemFilter:itemNumberSearch" ng-show="(x.pallets | filter:palletFilter ).length > 0">
+                    <td style="padding-left: 1em">
+
+                        <a href ui-sref="stateTruckDetails({transferSessionId: x.transferSessionId})" data-ui-sref-opts="{reload:'stateTruckDetails'}" data-toggle="modal" data-target="truckModal">{{x.location}}</a>
+                    </td>
+
+                    <td>&nbsp;&nbsp;{{x.unloadDate | transfersTimeStamp}}</td>
+                    <td>&nbsp;&nbsp;{{x.unloadedBy || 'Not Yet Unloaded'}}</td>
+                    <td colspan="2">
+                        <table style="width: 100%; height: 100%">
+                            <tr style="horiz-align: left" ng-repeat="pallet in x.pallets | filter:palletFilter">
+                                <td>&nbsp;&nbsp;{{pallet.location}}</td>
+                                <td style="width: 50%">&nbsp;&nbsp;{{pallet.updateDate | transfersTimeStamp}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+
+        <div class="panel panel-info" ng-if="MainCtrl.showResults && MainCtrl.results.length === 0">
+            <div class="panel-heading">
+                <h4 class="panel-title">Results for In-Transit Inventory</h4>
+            </div>
+            <div class="panel-body" ng-if="MainCtrl.message">
+                <span>{{MainCtrl.message}}</span>
+            </div>
+        </div>
+        <div ui-view></div>
+    </div>

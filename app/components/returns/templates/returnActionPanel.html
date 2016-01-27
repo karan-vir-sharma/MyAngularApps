@@ -1,0 +1,27 @@
+<div class="panel"
+     ng-class="{'panel-default': !returnStateCtrl.data.returnData.canEnterItems,'panel-primary': returnStateCtrl.data.returnData.canEnterItems}">
+    <div class="panel-heading">
+
+        <div class="pull-right">
+
+            <div class="btn-group btn-group-xs" style="margin-left:5px;">
+                <button id="order-actions-button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Actions
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li><a add-order-note href>Add Order Note</a></li>
+                    <li><a ng-click="returnStateCtrl.cancelReturn()" href>Cancel Return</a></li>
+                    <li ng-show="returnStateCtrl.data.returnData.canComplete"><a ng-click="returnStateCtrl.completeReturn()">Complete Return</a></li>
+                </ul>
+            </div>
+        </div>
+        <h4 class="panel-title">{{header}}</h4>
+        <div class="clearfix"></div>
+    </div>
+    <div ng-transclude ng-if="returnStateCtrl.data.returnData.canEnterItems">
+    </div>
+    <div ng-if="!returnStateCtrl.data.returnData.canEnterItems" class="panel-body">
+        You must complete the return details to the left before adding items to the return.
+    </div>
+</div>

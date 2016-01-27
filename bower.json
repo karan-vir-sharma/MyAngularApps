@@ -1,0 +1,29 @@
+{
+  "name": "Wms.Web",
+  "version": "0.0.0",
+  "authors": [
+    "Charles Josephs <cjosephs@fanatics.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1",
+    "bootstrap": "",
+    "font-awsome": "",
+    "jquery": "~1",
+    "ui-router": "",
+    "modernizr": "",
+    "normalize": "",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.5",
+    "moment": "",
+    "base64": "~0.3.0"
+  }
+}

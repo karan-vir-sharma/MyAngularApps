@@ -1,0 +1,32 @@
+﻿<div>
+    <form name="consignlpform" novalidate="" ng-submit="popupCtrl.consignLp()">
+        <div class="modal-header bg-primary">
+            <h3 class="modal-title">Consign LP to Cart</h3>
+        </div>
+        <div class="modal-body" ng-init="isCollapsed = true">
+            <table class="table table-collapse">
+                <thead>
+                <tr>
+                    <th>LP</th>
+                    <th>Cart</th>
+                </tr>
+                </thead>
+                <tbody> 
+                <tr>
+                    <td>
+                        <input required id="inputLpToConsign" type="text" capitalize class="form-control" ng-model="popupCtrl.consignForm.lp" auto-focus="popupCtrl.focus.lp" disable-element="{{!popupCtrl.focus.lp}}" on-enter-focus-to="inputDestinationCart">
+                    </td>
+                    <td>
+                        <input required id="inputDestinationCart" type="text" capitalize class="form-control" ng-model="popupCtrl.consignForm.cart" auto-focus="{{popupCtrl.focus.cart}}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="color: red; width: 100%; text-align:center" ng-if="popupCtrl.errorMessage">{{ popupCtrl.errorMessage }}</div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="popupCtrl.cancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary" auto-focus="{{popupCtrl.focus.submit}}">Consign</button>
+        </div>
+    </form>
+</div>

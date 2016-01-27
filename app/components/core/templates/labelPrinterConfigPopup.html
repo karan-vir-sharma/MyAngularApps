@@ -1,0 +1,15 @@
+﻿<div id="select-label-printer-popup">
+    <div class="modal-header">
+        <h3 class="modal-title">Select Label Printer</h3>
+    </div>
+    <div class="modal-body">
+        <ul class="list-group" style="height: 250px; overflow-y: auto;">
+            <li style="padding: 3px" class="list-group-item" ng-class="{'list-group-item-info':printer.selected, ' list-group-item-default':!printer.selected}" ng-repeat="printer in popupCtrl.labelPrinters"><a href ng-click="popupCtrl.setPrinter(printer)">{{printer.nickName}}</a></li>
+        </ul>
+
+        <div>Current Printer: {{popupCtrl.currentPrinter.nickName || 'None'}}</div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="popupCtrl.cancel()">cancel</button>
+    </div>
+</div>

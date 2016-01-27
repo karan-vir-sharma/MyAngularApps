@@ -1,0 +1,16 @@
+﻿<div>
+    <div class="modal-header" ng-class="{ 'bg-danger': popupCtrl.messageArgs.mode === 'ERROR','bg-warning': popupCtrl.messageArgs.mode === 'WARNING','bg-info': popupCtrl.messageArgs.mode === 'INFO' || ( popupCtrl.messageArgs.mode !== 'WARNING' && popupCtrl.messageArgs.mode !== 'ERROR') }">
+        <h3 class="modal-title">{{ popupCtrl.messageArgs.title }}</h3>
+    </div>
+    <div class="modal-body">
+        <div class="text-center" style="color: red;" ng-if="popupCtrl.messageArgs.mode === 'ERROR' || popupCtrl.messageArgs.mode === 'WARNING'">
+            {{ popupCtrl.messageArgs.message }}
+        </div>
+        <div class="text-center" ng-if="popupCtrl.messageArgs.mode !== 'ERROR' && popupCtrl.messageArgs.mode !== 'WARNING'">
+            {{ popupCtrl.messageArgs.message }}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="popupCtrl.ok()">Ok</button>
+    </div>
+</div>

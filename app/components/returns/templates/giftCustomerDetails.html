@@ -1,0 +1,28 @@
+<div class="panel" ng-if="returnStateCtrl.data.returnData.details.type === 'A03_RETURN_GIFT'"
+     ng-class="{
+        'panel-warning': returnStateCtrl.data.returnData.stateLookup.NoGiftCustomerDetails,
+        'panel-success': !returnStateCtrl.data.returnData.stateLookup.NoGiftCustomerDetails
+    }">
+    <div class="panel-heading">
+        <span loading-animation ng-show="giftCustomerCtrl.loading" style="position: absolute; right: 20px;"></span>
+        <h4 class="panel-title">Gift Customer Details</h4>
+        <span class="clearfix"></span>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-default">
+            <div class="checkbox" style="margin: 0">
+                <label class="no-select">
+                    <input type="checkbox" ng-model="giftCustomerCtrl.noCustomerDetails" ng-click="giftCustomerCtrl.setNoCustomerDetails(!(returnStateCtrl.data.returnData.details.noCustomerDetails || false))">
+                    No Customer Information
+                </label>
+            </div>
+        </li>
+        <li class="list-group-item list-group-item-default" ng-form="giftCustomerCtrl.giftCustomerDetailsForm" ng-hide="returnStateCtrl.data.returnData.details.noCustomerDetails">
+            <label>First Name: <input type="text" class="form-control" ng-model="returnStateCtrl.data.returnData.details.giftCustomerDetails.firstName" ng-blur="giftCustomerCtrl.giftCustomerDetailsForm.$dirty && giftCustomerCtrl.updateReturnDetails()"></label>
+            <label>Last Name: <input type="text" class="form-control" ng-model="returnStateCtrl.data.returnData.details.giftCustomerDetails.lastName" ng-blur="giftCustomerCtrl.giftCustomerDetailsForm.$dirty && giftCustomerCtrl.updateReturnDetails()"></label>
+            <label>Email: <input type="text" class="form-control" ng-model="returnStateCtrl.data.returnData.details.giftCustomerDetails.emailAddress" ng-blur="giftCustomerCtrl.giftCustomerDetailsForm.$dirty && giftCustomerCtrl.updateReturnDetails()"></label>
+            <label>Phone: <input type="text" class="form-control" ng-model="returnStateCtrl.data.returnData.details.giftCustomerDetails.phoneNumber" ng-blur="giftCustomerCtrl.giftCustomerDetailsForm.$dirty && giftCustomerCtrl.updateReturnDetails()"></label>
+        </li>
+    </ul>
+
+</div>

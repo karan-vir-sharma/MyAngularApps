@@ -1,0 +1,187 @@
+﻿<head >
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>LP Shipping Exceptions Manager</title>
+    <style type="text/css">
+        .red {
+            color: red;
+            background-color: #FFFFC2;
+        }
+
+        .black {
+            color: black;
+        }
+    </style>
+</head>
+<div ng-app="app.CutLP.core" style="width: 100%; border:none" class="center">
+
+        <div>
+            <h1>LP Shipping Exceptions Manager</h1>
+        </div>
+
+        <div class="ng-cloak">
+            <div class="panel panel-primary" ng-show="MainCtrl1.showDone == true">
+                <!---->
+                <div class="panel-heading">
+                    <h2 class="panel-title">Type <font style="font-weight: bold; text-decoration:underline">DONE</font> to complete the Adjustment </h2>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <input type="text" id="doneInput" capitalize class="form-control" placeholder="Scan DONE barcode or hit Enter" ng-model="doneModel" handle-enter="MainCtrl1.AdjustInventory(lpLocation,cartlocation, item, tote,'Done')" auto-focus on-enter-focus-to="doneInput">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="MainCtrl1.AdjustInventory(lpLocation,cartlocation, item, tote,'Done')">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-success" ng-show="lpComplete == 0">
+            <div class=" panel-heading"><h3>LP Adjustment Complete</h3></div>
+            <div class="panel-body"><h3>All items adjusted successfully! <br />Scan <font style="font-weight: bold; text-decoration:underline">DONE</font> barcode or hit <font style="font-weight: bold; text-decoration:underline">Enter</font>!</h3></div>
+        </div>
+
+        <div class="panel panel-primary" id="lpContentSearchHeading">
+            <div class="panel-heading">
+                <h4 class="panel-title">Scan <font style="font-weight: bold; text-decoration:underline">License Plate</font></h4>
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <input type="text" id="lpContentSearch" capitalize class="form-control" placeholder="Scan LP" ng-model="lpLocation" handle-enter="MainCtrl1.lpContentSearch(lpLocation)" auto-focus on-enter-focus-to="lpContentSearch">
+                    <span class="input-group-btn">
+                        <button id="btnLpSearch" class="btn btn-default" ng-click="MainCtrl1.lpContentSearch(lpLocation)">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info" ng-show="cutLpManagement.length > 0" ng-cloak id="lpContentGrid">
+            <div class="panel-heading">
+                <h4 class="panel-title">Results for {{MainCtrl1.searchText}}</h4>
+            </div>
+            <div class="panel-body">
+                <span>
+                    <table>
+                        <tr>
+                            <!--<td style="width:50%">-->
+                            <table class="table table-responsive" ng-show="cutLpManagement.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th style="width:25%">Item</th>
+                                        <th style="width:25%">LP Quantity</thstyle>
+                                        <th style="width:25%">Package Quantity</th>
+                                        <th style="width:25%">LP Adjustments Required</th>
+                                    </tr>
+                                </thead>
+                                <tr ng-repeat="item in cutLpManagement" ng-form name="innerform" ng-class='{red : item.difference < 0}'>
+
+                                    <td>
+                                        {{item.virtualSku || item.itemNumber}}
+                                    </td>
+                                    <td>
+                                        {{ item.lpQuantity }}
+                                    </td>
+                                    <td>
+                                        {{ item.packageQuantity }}
+                                    </td>
+                                    <td>
+                                        {{ item.difference }}
+                                    </td>
+
+                                </tr>
+
+                            </table>
+                            <!--</td>-->
+                            <!--<td style="width:50%">
+                                <textarea style="width:100%; height:100%">This is a Text Area</textarea>
+                            </td>-->
+                        </tr>
+                    </table>
+                </span>
+
+            </div>
+        </div>
+
+        <div class="ng-cloak">
+            <div class="panel panel-primary" ng-show="MainCtrl1.showScanLPAgain == true">
+                <div class="panel-body">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" id="scanLpAgain" ng-click="MainCtrl1.ReloadAll()">Scan LP Again!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ng-cloak">
+            <div class="panel panel-primary" ng-show="MainCtrl1.showCartScan == true">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Load LP onto Cart and <font style="font-weight: bold; text-decoration:underline">Scan Cart</font></h4>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <input type="text" id="loadLptoCart" capitalize class="form-control" placeholder="Scan CART" ng-model="cartlocation" handle-enter="MainCtrl1.AdjustInventory(lpLocation,cartlocation,'','','Cart')" auto-focus on-enter-focus-to="loadLptoCart">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="MainCtrl1.AdjustInventory(lpLocation,cartlocation,'','','Cart')">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ng-cloak">
+            <div class="panel panel-primary" ng-show="MainCtrl1.showRemoveItemScan == true">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Scan <font style="font-weight: bold; text-decoration:underline">Highlighted Items</font> and Remove these from LP </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <input type="text" id="removeItemFromLP" capitalize class="form-control" placeholder="Scan highlighted Items" ng-model="item" handle-enter="MainCtrl1.AdjustInventory(lpLocation,cartlocation,item,'','Item')" auto-focus on-enter-focus-to="removeItemFromLP">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="MainCtrl1.AdjustInventory(lpLocation,'',item,'','Item')">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ng-cloak">
+            <div class="panel panel-primary" ng-show="MainCtrl1.showToteScan == true">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Scan Item: <font style="font-weight: bold; text-decoration:underline">{{item}}</font> into Tote. <font style="font-weight: bold; text-decoration:underline">Scan Tote</font> </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <input type="text" id="scanItemToTote" capitalize class="form-control" placeholder="Scan TOTE" ng-model="tote" handle-enter="MainCtrl1.AdjustInventory(lpLocation,cartlocation, item, tote,'Tote')" auto-focus on-enter-focus-to="scanItemToTote">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="MainCtrl1.AdjustInventory(lpLocation,'', item, tote,'Tote')">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-danger" ng-show="Error != null">
+            <div class="panel-heading">An Error Occured. Please fix it!</div>
+            <div class="panel-body">{{Error}}</div>
+        </div>
+
+        <div class="panel panel-success" ng-if="MainCtrl1.showResults && MainCtrl1.results.length === 0">
+            <div class="panel-heading">
+                <h4 class="panel-title">Results for {{MainCtrl1.searchText}}</h4>
+            </div>
+            <div class="panel-body" ng-if="MainCtrl1.message">
+                <span>{{MainCtrl1.message}}</span>
+            </div>
+        </div>
+
+    <div class="panel panel-danger" ng-if="MainCtrl1.showErrorResults && MainCtrl1.errorResults.length === 0">
+        <div class="panel-heading">
+            <h4 class="panel-title">Results for {{MainCtrl1.searchText}}</h4>
+        </div>
+        <div class="panel-body" ng-if="MainCtrl1.errorMessage">
+            <span>{{MainCtrl1.errorMessage}}</span>
+        </div>
+    </div>
+        
+</div>

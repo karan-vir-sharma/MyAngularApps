@@ -1,0 +1,3 @@
+﻿<div class="legacy-container" ng-class="{'development' : legacyPageCtrl.environmentType === 'DEVELOPMENT', 'qa' : legacyPageCtrl.environmentType === 'QA', 'production' : legacyPageCtrl.environmentType === 'PRODUCTION', 'error': envNoticeCtrl.isError }">
+    <iframe ng-src="{{legacyPageCtrl.url}}" frameborder="0" width="100%" height="100%"></iframe>
+</div>

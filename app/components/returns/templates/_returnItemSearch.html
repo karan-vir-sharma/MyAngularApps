@@ -1,0 +1,12 @@
+<div return-action-panel header="Scan Item">
+    <div class="panel-body">
+        <div class="alert alert-danger" role="alert" ng-if="returnAddItemStateCtrl.errorMessage">{{returnAddItemStateCtrl.errorMessage}}</div>
+        <div class="input-group">
+            <input type="text" class="form-control" capitalize ng-model="returnAddItemStateCtrl.itemSearch" placeholder="Scan Item..." handle-enter="returnAddItemStateCtrl.findSearchItem()" auto-focus>
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="returnAddItemStateCtrl.findSearchItem()">Go!</button>
+            </span>
+        </div>
+    </div>
+    <div list-returning-items></div>
+</div>

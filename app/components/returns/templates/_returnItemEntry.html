@@ -1,0 +1,129 @@
+<div return-action-panel header="Enter Return Info">
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-info">
+            <button class="btn btn-xs btn-default" ng-click="returnAddItemEntryStateCtrl.setItemSearchMode()">Back to search</button>
+            <table class="table table-condensed" style="margin-bottom: 0">
+                <thead>
+                    <tr>
+                        <th>Order Item</th>
+                        <th>Item Number</th>
+                        <th>Description</th>
+                        <th>Shipped</th>
+                        <th>Previously Returned</th>
+                        <th>Returning Now</th>
+                        <!--<th>&nbsp;</th>-->
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            {{::returnAddItemEntryStateCtrl.scannedOrderItem.orderItemId}}
+                            <span class="label label-default" ng-if="returnAddItemEntryStateCtrl.scannedOrderItem.isDropShip">Drop Ship</span>
+                        </td>
+                        <td style="white-space: nowrap;">
+                            {{:: returnAddItemEntryStateCtrl.scannedOrderItem.virtualSku == '' ? returnAddItemEntryStateCtrl.scannedOrderItem.itemNumber : ''}}
+                            {{:: returnAddItemEntryStateCtrl.scannedOrderItem.virtualSku }}<br />
+
+                            <span class="label label-default" ng-if="returnAddItemEntryStateCtrl.scannedOrderItem.IsDemandMade">
+                                {{:: returnAddItemEntryStateCtrl.scannedOrderItem.IsCustom ? 'Custom' : 'Demand Made' }}
+                            </span>
+                        </td>
+                        <td width="99%">
+                            {{::returnAddItemEntryStateCtrl.scannedOrderItem.description}} - {{::returnAddItemEntryStateCtrl.scannedOrderItem.size}}
+                            <item-images product-id="returnAddItemEntryStateCtrl.scannedOrderItem.productId" primary-image-url="returnAddItemEntryStateCtrl.scannedOrderItem.imageUrl"></item-images>
+                        </td>
+                        <td>{{::returnAddItemEntryStateCtrl.scannedOrderItem.quantityShipped}}</td>
+                        <td>{{::returnAddItemEntryStateCtrl.scannedOrderItem.quantityReturned}}</td>
+                        <td>{{returnAddItemEntryStateCtrl.getQuantityReturning(returnAddItemEntryStateCtrl.scannedOrderItem.orderItemId)}}</td>
+                        <!--<td style="text-align: right;"><button class="btn btn-sm btn-default" ng-click="returnStateCtrl.printLabel(returnAddItemEntryStateCtrl.scannedOrderItem)">Print</button></td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </li>
+        <li class="list-group-item list-group-item-warning" class="form-group" ng-form name="scanItemEntryForm">
+            <div class="alert alert-danger" role="alert" ng-if="returnAddItemEntryStateCtrl.errorMessage">{{returnAddItemEntryStateCtrl.errorMessage}}</div>
+            <table class="table table-condensed" style="margin-bottom: 0">
+                <thead>
+                    <tr>
+                        <th>Customer Reason</th>
+                        <th>Verified Reason</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input name="reason"
+                                       required type="text" class="form-control" maxlength="2" size="2" style="width: 50px"
+                                       ng-model="returnAddItemEntryStateCtrl.tmp.selectedReasonCode"
+                                       ng-blur="returnAddItemEntryStateCtrl.setReasonCode(returnAddItemEntryStateCtrl.tmp.selectedReasonCode)"
+                                       auto-focus on-enter-focus-to="itemReturnBin">
+                                <div class="input-group-btn" style="width:100%">
+                                    <button type="button" tabindex="-1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="min-width: 250px; width:100%">
+                                        <span ng-class="{ 'has-error': scanItemEntryForm.reason.$invalid }" style="min-width: 200px !important;">{{returnAddItemEntryStateCtrl.tmp.selectedReasonCode | reasonCodeDisplay: true:'Enter reason code...':'Code unrecognized' }}</span>
+                                        <span class="caret pull-right" style="margin-top: 8px"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <li ng-repeat="reason in returnAddItemEntryStateCtrl.reasonCodes | orderBy:'listOrder'">
+                                            <a href ng-click="returnAddItemEntryStateCtrl.setReasonCode(reason.code)" 
+                                               on-click-focus-to="itemReturnBin">{{ reason.code | reasonCodeDisplay }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="input-group">
+                                    <input name="adjustedReason" id="adjustedReasonInput"
+                                           required type="text" class="form-control" maxlength="2" size="2" style="width: 50px"
+                                           ng-model="returnAddItemEntryStateCtrl.tmp.selectedAdjustedReasonCode"
+                                           ng-blur="returnAddItemEntryStateCtrl.setAdjustedReasonCode(returnAddItemEntryStateCtrl.tmp.selectedAdjustedReasonCode )"
+                                           on-enter-focus-to="itemReturnBin">
+                                    <div class="input-group-btn" style="width:100%">
+                                        <button type="button" tabindex="-1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="min-width: 250px;width:100%">
+                                            <span ng-class="{ 'has-error': scanItemEntryForm.adjustedReason.$invalid }" style="min-width: 200px !important;">{{returnAddItemEntryStateCtrl.tmp.selectedAdjustedReasonCode | reasonCodeDisplay: true:'Enter reason code...':'Code unrecognized' }}</span>
+                                            <span class="caret pull-right" style="margin-top: 8px"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                            <li ng-repeat="reason in returnAddItemEntryStateCtrl.adjustedReasonCodes | orderBy:'listOrder'">
+                                                <a href ng-click="returnAddItemEntryStateCtrl.setAdjustedReasonCode(reason.code)" 
+                                                   on-click-focus-to="itemReturnBin">{{ reason.code | reasonCodeDisplay }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-condensed" style="margin-bottom: 0">
+                <thead>
+                    <tr>
+                        <th width="99%">Container</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="99%">
+                            <input required ng-required="true" id="itemReturnBin" type="text" class="form-control" ng-model="returnAddItemEntryStateCtrl.form.container" capitalize handle-enter="scanItemEntryForm.$valid && returnAddItemEntryStateCtrl.addItemToReturn()">
+                        </td>
+                        <td style="text-align: right;">
+                            <button class="btn btn-default" ng-click="returnAddItemEntryStateCtrl.addItemToReturn()" ng-disabled="scanItemEntryForm.$invalid" ng-hide="returnAddItemEntryStateCtrl.processing">
+                                Add
+                            </button>
+                            <span loading-animation ng-show="returnAddItemEntryStateCtrl.processing"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </li>
+    </ul>
+
+
+    <div list-returning-items></div>
+</div>

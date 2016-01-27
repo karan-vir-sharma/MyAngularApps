@@ -1,0 +1,19 @@
+﻿<div>
+    <form ng-submit="popupCtrl.submit()">
+        <div class="modal-header bg-warning">
+            <h3 class="modal-title">Add Order Note</h3>
+        </div>
+        <div class="modal-body">
+
+            <textarea ng-model="popupCtrl.note" class="form-control" ng-required="true" rows="6" auto-focus></textarea>
+
+            <div class="text-center" style="color: red;" ng-if="popupCtrl.errorMessage">
+                {{ popupCtrl.errorMessage }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-default" ng-click="popupCtrl.cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

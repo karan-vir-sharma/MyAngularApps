@@ -1,0 +1,49 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h4 class="panel-title clearfix">
+      <a data-toggle="collapse" data-target="#allOrderItemsBody" href>
+        <span>All Items On This Order</span>
+      </a>
+    </h4>
+  </div>
+    <div id="allOrderItemsBody" class="panel-collapse collapse in">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Order Item</th>
+                <th>Item Number</th>
+                <th>Description</th>
+                <th>Shipped</th>
+                <th>Previously Returned</th>
+                <th>Returning Now</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="orderItem in returnStateCtrl.distilledOrderItemDetails">
+                    <td>
+                        {{::orderItem.orderItemId}}
+                        <span class="label label-default" ng-if="!orderItem.weShip">Drop Ship</span>
+                    </td>
+                    <td style="white-space: nowrap;">
+                        {{:: orderItem.virtualSku == '' ? orderItem.itemNumber : ''}}
+                        {{:: orderItem.virtualSku }}<br />
+
+                        <span class="label label-default" ng-if="orderItem.IsDemandMade">
+                            {{ orderItem.IsCustom ? 'Custom' : 'Demand Made' }}
+                        </span>
+                    </td>
+                    <td width="99%">
+                        {{::orderItem.description}} - {{::orderItem.size}}
+                        <item-images product-id="orderItem.productId" primary-image-url="orderItem.imageUrl"></item-images>
+                    </td>
+                    <td>{{::orderItem.quantityShipped}}</td>
+                    <td>{{::orderItem.quantityReturned}}</td>
+                    <td>{{ returnStateCtrl.getQuantityReturning(orderItem.orderItemId) }}</td>
+                    <td style="text-align: right;"><button class="btn btn-sm btn-default" ng-click="returnStateCtrl.printLabel(orderItem)">Print</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

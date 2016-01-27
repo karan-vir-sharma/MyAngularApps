@@ -1,0 +1,32 @@
+﻿<div class="nav-side-menu">
+    <div class="brand">
+        <span style="margin-right: 20px; position: absolute; right:0"><a href="http://localhost/WMSShell/main.aspx">Old</a></span>
+        <img src="./assets/img/ewarehouse_logoSmall.gif" alt="Fanatics WMS 2.0"/><br/>
+        <div>{{navCtrl.environmentName}}</div>
+    </div>
+    <table class="sub-brand" style="width: 100%">
+        <tr>
+            <td style="width:50%">
+                <div clock></div>
+            </td>
+            <td style="width:50%">
+                <div current-user></div>
+                <div class="text-center" current-label-printer></div>
+            </td>
+        </tr>
+    </table>
+    <div class="menu-list">
+        <ul ng-repeat="section in navCtrl.sections | orderBy : 'text'" class="menu-content collapse out">
+
+            <li data-toggle="collapse" data-target="#{{section.id}}" class="collapsed">
+                <a href><i class="fa fa-ellipsis-h"></i> {{ section.text }} <span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="{{section.id}}">
+                <li ng-repeat="link in section.links | orderBy : 'text'" ng-class="{'active': navCtrl.isState(link.state) }">
+                    <a ui-sref="{{link.state}}" ui-sref-opts="{{link.opts}}"><i class="fa" ng-class="{'fa-external-link-square' : link.legacy, 'fa-angle-right fa-lg' : !link.legacy }"></i> {{ link.text }}</a>
+                </li>
+            </ul>
+
+        </ul>
+    </div>
+</div>

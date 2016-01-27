@@ -1,0 +1,30 @@
+﻿<div file-download>
+    <div class="modal-header bg-info">
+        <h3 class="modal-title">Not Our Item</h3>
+    </div>
+    <form ng-submit="popupCtrl.download()">
+        <div class="modal-body">
+            <p>Fill out the customer information form below and click download to get the "Not Our Item" form letter. Place document in package for return shipping to customer.</p>
+
+            <label>First Name: <input type="text" class="form-control" ng-model="popupCtrl.form.firstName" auto-focus></label>
+            <label>Last Name: <input type="text" class="form-control" ng-model="popupCtrl.form.lastName"></label>
+            <br/>
+            <label>Address: <input type="text" required class="form-control" ng-model="popupCtrl.form.addressLine1"></label>
+            <br />
+            <label><input type="text" class="form-control" ng-model="popupCtrl.form.addressLine2"></label>
+            <br />
+            <label>City: <input type="text" required class="form-control" ng-model="popupCtrl.form.city"></label>
+            <label>State: <input type="text" required class="form-control" ng-model="popupCtrl.form.state" size="2"></label>
+            <label>Zip: <input type="text" required class="form-control" ng-model="popupCtrl.form.zip" size="10"></label>
+            <label>Country: <input type="text" class="form-control" ng-model="popupCtrl.form.country"></label>
+            <br />
+            <div class="text-center" style="color: red;" ng-if="popupCtrl.errorMessage">
+                {{ popupCtrl.errorMessage }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit">Download</button>
+            <button class="btn btn-default" ng-click="popupCtrl.cancel()">Cancel</button>
+        </div>
+    </form>
+</div>
